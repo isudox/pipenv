@@ -1,0 +1,686 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pipenv: Sacred Marriage of Pipfile, Pip, &amp; Virtualenv &#8212; pipenv 7.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pipenv &amp; Virtual Environments" href="basics.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pipenv-sacred-marriage-of-pipfile-pip-virtualenv">
+<h1>Pipenv: Sacred Marriage of Pipfile, Pip, &amp; Virtualenv<a class="headerlink" href="#pipenv-sacred-marriage-of-pipfile-pip-virtualenv" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/pipenv"><img alt="https://img.shields.io/pypi/v/pipenv.svg" src="https://img.shields.io/pypi/v/pipenv.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/pipenv"><img alt="https://img.shields.io/pypi/l/pipenv.svg" src="https://img.shields.io/pypi/l/pipenv.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/pipenv"><img alt="https://img.shields.io/pypi/wheel/pipenv.svg" src="https://img.shields.io/pypi/wheel/pipenv.svg" /></a>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/pipenv"><img alt="https://img.shields.io/pypi/pyversions/pipenv.svg" src="https://img.shields.io/pypi/pyversions/pipenv.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/kennethreitz/pipenv"><img alt="https://travis-ci.org/kennethreitz/pipenv.svg?branch=master" src="https://travis-ci.org/kennethreitz/pipenv.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://saythanks.io/to/kennethreitz"><img alt="https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg" src="https://img.shields.io/badge/Say%20Thanks!-🦉-1EAEDB.svg" /></a>
+<hr class="docutils" />
+<p><strong>Pipenv</strong> —&nbsp;the officially recommended Python packaging tool from <a class="reference external" href="https://packaging.python.org/new-tutorials/installing-and-using-packages/">Python.org</a>, free (as in freedom).</p>
+<p>Pipenv is a project that aims to bring the best of all packaging worlds to the Python world. It harnesses <a class="reference external" href="https://github.com/pypa/pipfile">Pipfile</a>, <a class="reference external" href="https://github.com/pypa/pip">pip</a>, and <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a> into one single toolchain. It features very pretty terminal colors. <em>Windows is a first–class citizen, in our world.</em></p>
+<p>It automatically creates and manages a virtualenv for your projects, as well as adds/removes packages from your <code class="docutils literal"><span class="pre">Pipfile</span></code> as you install/uninstall packages. The <code class="docutils literal"><span class="pre">lock</span></code> command generates a lockfile (<code class="docutils literal"><span class="pre">Pipfile.lock</span></code>).</p>
+<iframe src="https://player.vimeo.com/video/233134524" width="700" height="460" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe><p>The problems that Pipenv seeks to solve are multi-faceted:</p>
+<ul class="simple">
+<li>When using Pipenv, you no longer need to use <code class="docutils literal"><span class="pre">pip</span></code> and <code class="docutils literal"><span class="pre">virtualenv</span></code> separately. They work together.</li>
+<li>Managing a <code class="docutils literal"><span class="pre">requirements.txt</span></code> file <a class="reference external" href="https://www.kennethreitz.org/essays/a-better-pip-workflow">can be problematic</a>, so Pipenv uses the upcoming <code class="docutils literal"><span class="pre">Pipfile</span></code> and <code class="docutils literal"><span class="pre">Pipfile.lock</span></code> instead, which is superior for basic use cases.</li>
+<li>Hashes are used everywhere, always. Security.</li>
+</ul>
+<div class="section" id="install-pipenv-today">
+<h2>Install Pipenv Today!<a class="headerlink" href="#install-pipenv-today" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install pipenv
+✨🍰✨
+</pre></div>
+</div>
+<p>If you have excellent taste, there’s also a  <a class="reference external" href="http://docs.pipenv.org/en/latest/advanced.html#fancy-installation-of-pipenv">fancy installation method</a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Pipenv &amp; Virtual Environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#make-sure-you-ve-got-python-pip">☤  Make sure you’ve got Python &amp; pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#installing-pipenv">☤ Installing Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#installing-packages-for-your-project">☤ Installing packages for your project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#using-installed-packages">☤ Using installed packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#next-steps">☤ Next steps</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="user-testimonials">
+<h2>User Testimonials<a class="headerlink" href="#user-testimonials" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><strong>Jannis Leidel</strong>, former pip maintainer—</dt>
+<dd><em>Pipenv is the porcelain I always wanted built for pip. It fits my brain and mostly replaces virtualenvwrapper and manual pip calls for me. Use it.</em></dd>
+<dt><strong>Jhon Crypt</strong>—</dt>
+<dd><em>Pipenv is the best thing since pip, thank you!</em></dd>
+<dt><strong>Isaac Sanders</strong>—</dt>
+<dd><em>Pipenv is literally the best thing about my day today. Thanks, Kenneth!</em></dd>
+</dl>
+</div>
+<div class="section" id="pipenv-features">
+<h2>☤ Pipenv Features<a class="headerlink" href="#pipenv-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Enables truly <em>deterministic builds</em>, while easily specifying <em>what you want</em>.</li>
+<li>Automatically generates and checks file hashes for locked dependencies.</li>
+<li>Automatically finds your project home, recursively, by looking for a <code class="docutils literal"><span class="pre">Pipfile</span></code>.</li>
+<li>Automatically generates a <code class="docutils literal"><span class="pre">Pipfile</span></code>, if one doesn’t exist.</li>
+<li>Automatically generates a <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>, if one doesn’t exist.</li>
+<li>Automatically creates a virtualenv in a standard location.</li>
+<li>Automatically adds packages to a Pipfile when they are installed.</li>
+<li>Automatically removes packages from a Pipfile when they are un-installed.</li>
+<li>Also automatically updates pip and itself, when asked.</li>
+</ul>
+<p>The main commands are <code class="docutils literal"><span class="pre">install</span></code>, <code class="docutils literal"><span class="pre">uninstall</span></code>, and <code class="docutils literal"><span class="pre">lock</span></code>, which generates a <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>. These are intended to replace <code class="docutils literal"><span class="pre">$</span> <span class="pre">pip</span> <span class="pre">install</span></code> usage, as well as manual virtualenv management (to activate a virtualenv, run <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">shell</span></code>).</p>
+<div class="section" id="basic-concepts">
+<h3>Basic Concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A virtualenv will automatically be created, when one doesn’t exist.</li>
+<li>When no parameters are passed to <code class="docutils literal"><span class="pre">install</span></code>, all packages <code class="docutils literal"><span class="pre">[packages]</span></code> specified will be installed.</li>
+<li>To initialize a Python 3 virtual environment, run <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">--three</span></code>.</li>
+<li>To initialize a Python 2 virtual environment, run <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">--two</span></code>.</li>
+<li>Otherwise, whatever virtualenv defaults to will be the default.</li>
+</ul>
+</div>
+<div class="section" id="other-commands">
+<h3>Other Commands<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">shell</span></code> will spawn a shell with the virtualenv activated.</li>
+<li><code class="docutils literal"><span class="pre">run</span></code> will run a given command from the virtualenv, with any arguments forwarded (e.g. <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">python</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">check</span></code> asserts that PEP 508 requirements are being met by the current environment.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="further-documentation-guides">
+<h2>Further Documentation Guides<a class="headerlink" href="#further-documentation-guides" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="basics.html">Pipenv &amp; Virtual Environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#make-sure-you-ve-got-python-pip">☤  Make sure you’ve got Python &amp; pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#installing-pipenv">☤ Installing Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#installing-packages-for-your-project">☤ Installing packages for your project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#using-installed-packages">☤ Using installed packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basics.html#next-steps">☤ Next steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced.html">Advanced Usage of Pipenv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#example-pipfile-pipfile-lock">☤ Example Pipfile &amp; Pipfile.lock</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#importing-from-requirements-txt">☤ Importing from requirements.txt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#specifying-versions-of-a-package">☤ Specifying Versions of a Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#specifying-versions-of-python">☤ Specifying Versions of Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#fancy-installation-of-pipenv">☤ Fancy Installation of Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#pragmatic-installation-of-pipenv">☤ Pragmatic Installation of Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#crude-installation-of-pipenv">☤ Crude Installation of Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#environment-management-with-pipenv">☤ Environment Management with Pipenv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#configuration-with-environment-variables">☤ Configuration With Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#custom-virtual-environment-location">☤ Custom Virtual Environment Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#testing-projects">☤ Testing Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#pipfile-lock-security-features">☤ Pipfile.lock Security Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advanced.html#shell-completion">☤ Shell Completion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="pipenv-usage">
+<h2>☤ Pipenv Usage<a class="headerlink" href="#pipenv-usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pipenv">
+<h3>pipenv<a class="headerlink" href="#pipenv" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-update">
+<code class="descname">--update</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update Pipenv &amp; pip to latest.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-where">
+<code class="descname">--where</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-where" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output project home information.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-venv">
+<code class="descname">--venv</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-venv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output virtualenv information.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-rm">
+<code class="descname">--rm</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-bare">
+<code class="descname">--bare</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-bare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimal output.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-h">
+<code class="descname">-h</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--help</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-h" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show this message then exit.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-j">
+<code class="descname">-j</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--jumbotron</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-j" title="Permalink to this definition">¶</a></dt>
+<dd><p>An easter egg, effectively.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-version">
+<code class="descname">--version</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show the version and exit.</p>
+</dd></dl>
+
+<div class="section" id="pipenv-check">
+<h4>check<a class="headerlink" href="#pipenv-check" title="Permalink to this headline">¶</a></h4>
+<p>Checks PEP 508 markers provided in Pipfile.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv check <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-check-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-check-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-check-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-check-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-graph">
+<h4>graph<a class="headerlink" href="#pipenv-graph" title="Permalink to this headline">¶</a></h4>
+<p>Displays currently–installed dependency graph information.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv graph <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-graph-bare">
+<code class="descname">--bare</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-graph-bare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimal output.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-install">
+<h4>install<a class="headerlink" href="#pipenv-install" title="Permalink to this headline">¶</a></h4>
+<p>Installs provided packages and adds them to Pipfile, or (if none is given), installs all packages.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv install <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>PACKAGE_NAME<span class="o">]</span> <span class="o">[</span>MORE_PACKAGES<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-install-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--dev</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Install package(s) in [dev-packages].</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-install-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-system">
+<code class="descname">--system</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-system" title="Permalink to this definition">¶</a></dt>
+<dd><p>System pip management.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--requirements</code><code class="descclassname"> &lt;requirements&gt;</code><a class="headerlink" href="#cmdoption-pipenv-install-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import a requirements.txt file.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-verbose">
+<code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose mode.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-ignore-pipfile">
+<code class="descname">--ignore-pipfile</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-ignore-pipfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore Pipfile when installing, using the Pipfile.lock.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-skip-lock">
+<code class="descname">--skip-lock</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-skip-lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ignore locking mechanisms when installing—use the Pipfile, instead.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-install-arg-package-name">
+<code class="descname">PACKAGE_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-arg-package-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-install-arg-more-packages">
+<code class="descname">MORE_PACKAGES</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-install-arg-more-packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-lock">
+<h4>lock<a class="headerlink" href="#pipenv-lock" title="Permalink to this headline">¶</a></h4>
+<p>Generates Pipfile.lock.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv lock <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-lock-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-lock-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-lock-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-lock-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-lock-verbose">
+<code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-lock-verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose mode.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-lock-r">
+<code class="descname">-r</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--requirements</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-lock-r" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate output compatible with requirements.txt.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-run">
+<h4>run<a class="headerlink" href="#pipenv-run" title="Permalink to this headline">¶</a></h4>
+<p>Spawns a command installed into the virtualenv.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv run <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-run-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-run-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-run-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-run-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-run-arg-command">
+<code class="descname">COMMAND</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-run-arg-command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-run-arg-args">
+<code class="descname">ARGS</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-run-arg-args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-shell">
+<h4>shell<a class="headerlink" href="#pipenv-shell" title="Permalink to this headline">¶</a></h4>
+<p>Spawns a shell within the virtualenv.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv shell <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>SHELL_ARGS<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-shell-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-shell-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-shell-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-shell-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-shell-c">
+<code class="descname">-c</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--compat</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-shell-c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run in shell compatibility mode (for misconfigured shells).</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-shell-arg-shell-args">
+<code class="descname">SHELL_ARGS</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-shell-arg-shell-args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-uninstall">
+<h4>uninstall<a class="headerlink" href="#pipenv-uninstall" title="Permalink to this headline">¶</a></h4>
+<p>Un-installs a provided package and removes it from Pipfile.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv uninstall <span class="o">[</span>OPTIONS<span class="o">]</span> <span class="o">[</span>PACKAGE_NAME<span class="o">]</span> <span class="o">[</span>MORE_PACKAGES<span class="o">]</span>...
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-uninstall-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-system">
+<code class="descname">--system</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-system" title="Permalink to this definition">¶</a></dt>
+<dd><p>System pip management.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-lock">
+<code class="descname">--lock</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-lock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lock afterwards.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--dev</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Un-install all package from [dev-packages].</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-all">
+<code class="descname">--all</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Purge all package(s) from virtualenv. Does not edit Pipfile.</p>
+</dd></dl>
+
+<p class="rubric">Arguments</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-arg-package-name">
+<code class="descname">PACKAGE_NAME</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-arg-package-name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-uninstall-arg-more-packages">
+<code class="descname">MORE_PACKAGES</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-uninstall-arg-more-packages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optional argument(s)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="pipenv-update">
+<h4>update<a class="headerlink" href="#pipenv-update" title="Permalink to this headline">¶</a></h4>
+<p>Updates Pipenv &amp; pip to latest, uninstalls all packages, and re-installs package(s) in [packages] to latest compatible versions.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>pipenv update <span class="o">[</span>OPTIONS<span class="o">]</span>
+</pre></div>
+</div>
+<p class="rubric">Options</p>
+<dl class="option">
+<dt id="cmdoption-pipenv-update-v">
+<code class="descname">-v</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--verbose</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update-v" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verbose mode.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-update-d">
+<code class="descname">-d</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--dev</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update-d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Additionally install package(s) in [dev-packages].</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-update-three">
+<code class="descname">--three</code><code class="descclassname"></code><code class="descclassname">, </code><code class="descname">--two</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update-three" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use Python 3/2 when creating virtualenv.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-update-python">
+<code class="descname">--python</code><code class="descclassname"> &lt;python&gt;</code><a class="headerlink" href="#cmdoption-pipenv-update-python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify which version of Python virtualenv should use.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-update-dry-run">
+<code class="descname">--dry-run</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update-dry-run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just output outdated packages.</p>
+</dd></dl>
+
+<dl class="option">
+<dt id="cmdoption-pipenv-update-bare">
+<code class="descname">--bare</code><code class="descclassname"></code><a class="headerlink" href="#cmdoption-pipenv-update-bare" title="Permalink to this definition">¶</a></dt>
+<dd><p>Minimal output.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="#">
+    <img class="logo" src="_static/pipenv.svg" title="https://kennethreitz.org/tattoos"/>
+  </a>
+</p>
+
+<p>
+  <iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&repo=pipenv&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+<p>
+  Pipenv is an experimental project that aims to bring the best of all packaging worlds to the Python world. It harnesses Pipfile, pip, and virtualenv into one single toolchain.
+  <p>It features very pretty terminal colors.</p>
+</p>
+
+<h3>Stay Informed</h3>
+<p>Receive updates on new releases and upcoming projects.</p>
+
+<p><iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&type=follow&count=false"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe></p>
+
+<p><a href="https://twitter.com/kennethreitz" class="twitter-follow-button" data-show-count="false">Follow @kennethreitz</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<p><a href="https://saythanks.io/to/kennethreitz">Say Thanks!</a></p>
+<p><a href="http://tinyletter.com/kennethreitz">Join Mailing List</a>.</p>
+
+<h3>Other Projects</h3>
+
+<p>More <a href="http://kennethreitz.org/">Kenneth Reitz</a> projects:</p>
+<ul>
+    <li><a href="http://pep8.org/">pep8.org</a></li>
+    <li><a href="http://httpbin.org/">httpbin.org</a></li>
+    <li><a href="http://python-guide.org">The Python Guide</a></li>
+    <li><a href="http://python-requests.org/">Requests: HTTP for Humans</a></li>
+    <li><a href="https://github.com/kennethreitz/maya">Maya: Datetimes for Humans</a></li>
+    <li><a href="https://github.com/kennethreitz/records">Records: SQL for Humans</a></li>
+    <li><a href="http://www.git-legit.org">Legit: Git for Humans</a></li>
+    <li><a href="http://docs.python-tablib.org/en/latest/">Tablib: Tabular Datasets</a></li>
+</ul>
+
+
+<h3>Useful Links</h3>
+<ul>
+  <li><a href="http://docs.python-requests.org/en/latest/community/recommended/">Recommended Packages and Extensions</a></li>
+
+  <p></p>
+
+  <li><a href="http://github.com/kennethreitz/pipenv">Pipenv @ GitHub</a></li>
+  <li><a href="http://pypi.python.org/pypi/pipenv">Pipenv @ PyPI</a></li>
+  <li><a href="http://github.com/kennethreitz/pipenv/issues">Issue Tracker</a></li>
+  <hr>
+  <li><a href="http://pipenv-ja.readthedocs.io/ja/translate-ja/">日本語</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><!-- Alabaster (krTheme++) Hacks -->
+
+<!-- CSS Adjustments (I'm very picky.) -->
+<style type="text/css">
+
+  /* Rezzy requires precise alignment. */
+  img.logo {margin-left: -20px!important;}
+
+  /* "Quick Search" should be capitalized. */
+  div#searchbox h3 {text-transform: capitalize;}
+
+  /* Make the document a little wider, less code is cut-off. */
+  div.document {width: 1008px;}
+
+  /* Much-improved spacing around code blocks. */
+  div.highlight pre {padding: 11px 14px;}
+
+  /* Remain Responsive! */
+  @media screen and (max-width: 1008px) {
+    div.sphinxsidebar {display: none;}
+    div.document {width: 100%!important;}
+
+    /* Have code blocks escape the document right-margin. */
+    div.highlight pre {margin-right: -30px;}
+  }
+
+</style>
+
+<!-- Analytics tracking for Kenneth. -->
+<script type="text/javascript">
+  var _gauges = _gauges || [];
+  (function() {
+    var t   = document.createElement('script');
+    t.type  = 'text/javascript';
+    t.async = true;
+    t.id    = 'gauges-tracker';
+    t.setAttribute('data-site-id', '588f8e99c88d9013e60fa373');
+    t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+    t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(t, s);
+  })();
+</script>
+
+<!-- There are no more hacks. -->
+<!--         இڿڰۣ-ڰۣ—         -->
+<!--   Love, Kenneth Reitz    -->
+
+<script src="_static//konami.js"></script>
+<script>
+  var easter_egg = new Konami('http://fortunes.herokuapp.com/random/raw');
+</script>
+
+<!-- That was not a hack. That was art. -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017. A <a href="http://kennethreitz.com/pages/open-projects.html">Kenneth Reitz</a> Project.
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/kennethreitz/pipenv" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

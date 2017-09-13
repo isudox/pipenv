@@ -1,0 +1,14 @@
+{
+  "tests/test_pipenv.py::TestPipenv::()::test_activate_virtualenv[/bin/bash-]": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_activate_virtualenv[/bin/csh-.csh]": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_activate_virtualenv[/bin/fish-.fish]": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_activate_virtualenv[/bin/unknown-]": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_activate_virtualenv_no_source": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_cli_usage": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_pipenv_run": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_pipenv_uninstall": true,
+  "tests/test_pipenv.py::TestPipenv::()::test_requirements_to_pipfile": true,
+  "tests/test_project.py::TestProject::()::test_download_location": true,
+  "tests/test_project.py::TestProject::()::test_project": true,
+  "tests/test_project.py::TestProject::()::test_proper_names": true
+}

@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Pipenv &amp; Virtual Environments &#8212; pipenv 7.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced Usage of Pipenv" href="advanced.html" />
+    <link rel="prev" title="Pipenv: Sacred Marriage of Pipfile, Pip, &amp; Virtualenv" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pipenv-virtual-environments">
+<span id="virtualenvironments-ref"></span><h1>Pipenv &amp; Virtual Environments<a class="headerlink" href="#pipenv-virtual-environments" title="Permalink to this headline">¶</a></h1>
+<img alt="https://farm3.staticflickr.com/2943/33485660921_dfc0494739_k_d.jpg" src="https://farm3.staticflickr.com/2943/33485660921_dfc0494739_k_d.jpg" />
+<p>This tutorial walks you through installing and using Python packages.</p>
+<p>It will show you how to install and use the necessary tools and make strong
+recommendations on best practices. Keep in mind that Python is used for a great
+many different purposes, and precisely how you want to manage your dependencies
+may change based on how you decide to publish your software. The guidance
+presented here is most directly applicable to the development and deployment of
+network services (including web applications), but is also very well suited to
+managing development and testing environments for any kind of project.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This guide is written for Python 3, however, these instructions
+should work fine on Python 2.7—if you are still using it, for some reason.</p>
+</div>
+<div class="section" id="make-sure-you-ve-got-python-pip">
+<h2>☤  Make sure you’ve got Python &amp; pip<a class="headerlink" href="#make-sure-you-ve-got-python-pip" title="Permalink to this headline">¶</a></h2>
+<p>Before you go any further, make sure you have Python and that it’s avalable
+from your command line. You can check this by simply running:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python --version
+</pre></div>
+</div>
+<p>You should get some output like <code class="docutils literal"><span class="pre">3.6.2</span></code>. If you do not have Python, please
+install the latest 3.x version from <a class="reference external" href="https://python.org">python.org</a> or refer to the
+<a class="reference external" href="http://docs.python-guide.org/en/latest/starting/installation/">Installing Python</a> section of <em>The Hitchhiker’s Guide to Python</em>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you’re newcomer and you get an error like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">python</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">NameError</span>: <span class="n">name &#39;python&#39; is not defined</span>
+</pre></div>
+</div>
+<p class="last">It’s because this command is intended to be run in a <em>shell</em> (also called
+a <em>terminal</em> or <em>console</em>). See the Python for Beginners
+<a class="reference external" href="https://opentechschool.github.io/python-beginners/en/getting_started.html#what-is-python-exactly">getting started tutorial</a> for an introduction to using your operating
+system’s shell and interacting with Python.</p>
+</div>
+<p>Additionally, you’ll need to make sure you have <span class="xref std std-ref">pip</span> available. You can
+check this by running:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip --version
+</pre></div>
+</div>
+<p>If you installed Python from source, with an installer from <a class="reference external" href="https://python.org">python.org</a>, or
+via <a class="reference external" href="https://brew.sh">Homebrew</a> you should already have pip. If you’re on Linux and installed
+using your OS package manager, you may have to <a class="reference external" href="https://pip.pypa.io/en/stable/installing/">install pip</a> separately.</p>
+</div>
+<div class="section" id="installing-pipenv">
+<h2>☤ Installing Pipenv<a class="headerlink" href="#installing-pipenv" title="Permalink to this headline">¶</a></h2>
+<p><span class="xref std std-ref">Pipenv</span> is a dependency manager for Python projects. If you’re familiar
+with Node.js’ <a class="reference external" href="https://www.npmjs.com/">npm</a> or Ruby’s <a class="reference external" href="http://bundler.io/">bundler</a>, it is similar in spirit to those
+tools. While <span class="xref std std-ref">pip</span> can install Python packages, Pipenv is recommended as
+it’s a higher-level tool that simplifies dependency management for common use
+cases.</p>
+<p>Use <code class="docutils literal"><span class="pre">pip</span></code> to install Pipenv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ pip install --user pipenv
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This does a <a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#user-installs">user installation</a> to prevent breaking any system-wide
+packages. If <code class="docutils literal"><span class="pre">pipenv</span></code> isn’t available in your shell after installation,
+you’ll need to add the <a class="reference external" href="https://docs.python.org/3/library/site.html#site.USER_BASE">user base</a>’s <code class="docutils literal"><span class="pre">bin</span></code> directory to your <code class="docutils literal"><span class="pre">PATH</span></code>.
+You can find the user base by running <code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">site</span></code> which will print
+site information including the user base. For example, on Linux this will
+return <code class="docutils literal"><span class="pre">USER_BASE:</span> <span class="pre">'~/.local'</span></code> so you’ll need to add <code class="docutils literal"><span class="pre">~/.local/bin</span></code> to
+your <code class="docutils literal"><span class="pre">PATH</span></code>. On Linux and macOS you can set your <code class="docutils literal"><span class="pre">PATH</span></code> permanently
+by <a class="reference external" href="https://stackoverflow.com/a/14638025">modifying ~/.profile</a>. On Windows you can set the user
+<code class="docutils literal"><span class="pre">PATH</span></code> permanently in the <a class="reference external" href="https://msdn.microsoft.com/en-us/library/windows/desktop/bb776899(v=vs.85).aspx">Control Panel</a>.</p>
+</div>
+</div>
+<div class="section" id="installing-packages-for-your-project">
+<h2>☤ Installing packages for your project<a class="headerlink" href="#installing-packages-for-your-project" title="Permalink to this headline">¶</a></h2>
+<p>Pipenv manages dependencies on a per-project basis. To install packages,
+change into your project’s directory (or just an empty directory for this
+tutorial) and run:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> myproject
+$ pipenv install requests
+</pre></div>
+</div>
+<p>Pipenv will install the excellent <a class="reference external" href="https://python-requests.org">Requests</a> library and create a <code class="docutils literal"><span class="pre">Pipfile</span></code>
+for you in your project’s directory. The <span class="xref std std-ref">Pipfile</span> is used to track which
+dependencies your project needs in case you need to re-install them, such as
+when you share your project with others. You should get output similar to this
+(although the exact paths shown will vary):</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Creating a Pipfile for this project...
+Creating a virtualenv for this project...
+Using base prefix &#39;/usr/local/Cellar/python3/3.6.2/Frameworks/Python.framework/Versions/3.6&#39;
+New python executable in ~/.local/share/virtualenvs/tmp-agwWamBd/bin/python3.6
+Also creating executable in ~/.local/share/virtualenvs/tmp-agwWamBd/bin/python
+Installing setuptools, pip, wheel...done.
+
+Virtualenv location: ~/.local/share/virtualenvs/tmp-agwWamBd
+Installing requests...
+Collecting requests
+  Using cached requests-2.18.4-py2.py3-none-any.whl
+Collecting idna&lt;2.7,&gt;=2.5 (from requests)
+  Using cached idna-2.6-py2.py3-none-any.whl
+Collecting urllib3&lt;1.23,&gt;=1.21.1 (from requests)
+  Using cached urllib3-1.22-py2.py3-none-any.whl
+Collecting chardet&lt;3.1.0,&gt;=3.0.2 (from requests)
+  Using cached chardet-3.0.4-py2.py3-none-any.whl
+Collecting certifi&gt;=2017.4.17 (from requests)
+  Using cached certifi-2017.7.27.1-py2.py3-none-any.whl
+Installing collected packages: idna, urllib3, chardet, certifi, requests
+Successfully installed certifi-2017.7.27.1 chardet-3.0.4 idna-2.6 requests-2.18.4 urllib3-1.22
+
+Adding requests to Pipfile&#39;s [packages]...
+P.S. You have excellent taste! ✨ 🍰 ✨
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-installed-packages">
+<h2>☤ Using installed packages<a class="headerlink" href="#using-installed-packages" title="Permalink to this headline">¶</a></h2>
+<p>Now that Requests is installed you can create a simple <code class="docutils literal"><span class="pre">main.py</span></code> file to
+use it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://httpbin.org/ip&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Your IP is {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;origin&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>Then you can run this script using <code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">run</span></code>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pipenv run python main.py
+</pre></div>
+</div>
+<p>You should get output similar to this:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>Your IP is 8.8.8.8
+</pre></div>
+</div>
+<p>Using <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">run</span></code> ensures that your installed packages are available to
+your script. It’s also possible to spawn a new shell that ensures all commands
+have access to your installed packages with <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">shell</span></code>.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>☤ Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Congratulations, you now know how to install and use Python packages! ✨ 🍰 ✨</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/pipenv.svg" title="https://kennethreitz.org/tattoos"/>
+  </a>
+</p>
+
+<p>
+  <iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&repo=pipenv&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+<p>
+  Pipenv is an experimental project that aims to bring the best of all packaging worlds to the Python world. It harnesses Pipfile, pip, and virtualenv into one single toolchain.
+  <p>It features very pretty terminal colors.</p>
+</p>
+
+<h3>Stay Informed</h3>
+<p>Receive updates on new releases and upcoming projects.</p>
+
+<p><iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&type=follow&count=false"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe></p>
+
+<p><a href="https://twitter.com/kennethreitz" class="twitter-follow-button" data-show-count="false">Follow @kennethreitz</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<p><a href="https://saythanks.io/to/kennethreitz">Say Thanks!</a></p>
+<p><a href="http://tinyletter.com/kennethreitz">Join Mailing List</a>.</p>
+
+<h3>Other Projects</h3>
+
+<p>More <a href="http://kennethreitz.org/">Kenneth Reitz</a> projects:</p>
+<ul>
+    <li><a href="http://pep8.org/">pep8.org</a></li>
+    <li><a href="http://httpbin.org/">httpbin.org</a></li>
+    <li><a href="http://python-guide.org">The Python Guide</a></li>
+    <li><a href="http://python-requests.org/">Requests: HTTP for Humans</a></li>
+    <li><a href="https://github.com/kennethreitz/records">Records: SQL for Humans</a></li>
+    <li><a href="http://www.git-legit.org">Legit: Git for Humans</a></li>
+    <li><a href="http://docs.python-tablib.org/en/latest/">Tablib: Tabular Datasets</a></li>
+    <li><a href="http://markdownplease.com">Markdown, Please!</a></li>
+</ul>
+
+
+<h3>Useful Links</h3>
+<ul>
+  <li><a href="http://docs.python-requests.org/en/latest/community/recommended/">Recommended Packages and Extensions</a></li>
+
+  <p></p>
+
+  <li><a href="http://github.com/kennethreitz/pipenv">Pipenv @ GitHub</a></li>
+  <li><a href="http://pypi.python.org/pypi/pipenv">Pipenv @ PyPI</a></li>
+  <li><a href="http://github.com/kennethreitz/pipenv/issues">Issue Tracker</a></li>
+  <hr>
+  <li><a href="http://pipenv-ja.readthedocs.io/ja/translate-ja/">日本語</a></li>
+</ul>
+
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pipenv &amp; Virtual Environments</a><ul>
+<li><a class="reference internal" href="#make-sure-you-ve-got-python-pip">☤  Make sure you’ve got Python &amp; pip</a></li>
+<li><a class="reference internal" href="#installing-pipenv">☤ Installing Pipenv</a></li>
+<li><a class="reference internal" href="#installing-packages-for-your-project">☤ Installing packages for your project</a></li>
+<li><a class="reference internal" href="#using-installed-packages">☤ Using installed packages</a></li>
+<li><a class="reference internal" href="#next-steps">☤ Next steps</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Pipenv: Sacred Marriage of Pipfile, Pip, &amp; Virtualenv</a></li>
+      <li>Next: <a href="advanced.html" title="next chapter">Advanced Usage of Pipenv</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/basics.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><!-- Alabaster (krTheme++) Hacks -->
+
+<!-- CSS Adjustments (I'm very picky.) -->
+<style type="text/css">
+
+  /* Rezzy requires precise alignment. */
+  img.logo {margin-left: -20px!important;}
+
+  /* "Quick Search" should be capitalized. */
+  div#searchbox h3 {text-transform: capitalize;}
+
+  /* Make the document a little wider, less code is cut-off. */
+  div.document {width: 1008px;}
+
+  /* Much-improved spacing around code blocks. */
+  div.highlight pre {padding: 11px 14px;}
+
+  /* Remain Responsive! */
+  @media screen and (max-width: 1008px) {
+    div.sphinxsidebar {display: none;}
+    div.document {width: 100%!important;}
+
+    /* Have code blocks escape the document right-margin. */
+    div.highlight pre {margin-right: -30px;}
+  }
+
+</style>
+
+<!-- Analytics tracking for Kenneth. -->
+<script type="text/javascript">
+  var _gauges = _gauges || [];
+  (function() {
+    var t   = document.createElement('script');
+    t.type  = 'text/javascript';
+    t.async = true;
+    t.id    = 'gauges-tracker';
+    t.setAttribute('data-site-id', '588f8e99c88d9013e60fa373');
+    t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+    t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(t, s);
+  })();
+</script>
+
+<!-- There are no more hacks. -->
+<!--         இڿڰۣ-ڰۣ—         -->
+<!--   Love, Kenneth Reitz    -->
+
+<script src="_static//konami.js"></script>
+<script>
+  var easter_egg = new Konami('http://fortunes.herokuapp.com/random/raw');
+</script>
+
+<!-- That was not a hack. That was art. -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017. A <a href="http://kennethreitz.com/pages/open-projects.html">Kenneth Reitz</a> Project.
+      
+      |
+      <a href="_sources/basics.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/kennethreitz/pipenv" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>

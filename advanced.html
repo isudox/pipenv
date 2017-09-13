@@ -1,0 +1,604 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Advanced Usage of Pipenv &#8212; pipenv 7.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Pipenv &amp; Virtual Environments" href="basics.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="advanced-usage-of-pipenv">
+<span id="advanced"></span><h1>Advanced Usage of Pipenv<a class="headerlink" href="#advanced-usage-of-pipenv" title="Permalink to this headline">¶</a></h1>
+<img alt="https://farm4.staticflickr.com/3672/33231486560_bff4124c9a_k_d.jpg" src="https://farm4.staticflickr.com/3672/33231486560_bff4124c9a_k_d.jpg" />
+<p>This document covers some of pipenv’s more advanced features.</p>
+<div class="section" id="example-pipfile-pipfile-lock">
+<h2>☤ Example Pipfile &amp; Pipfile.lock<a class="headerlink" href="#example-pipfile-pipfile-lock" title="Permalink to this headline">¶</a></h2>
+<p id="example-files">Here is a simple example of a <code class="docutils literal"><span class="pre">Pipfile</span></code> and the resulting <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>.</p>
+<div class="section" id="example-pipfile">
+<h3>Example Pipfile<a class="headerlink" href="#example-pipfile" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">dev</span><span class="o">-</span><span class="n">packages</span><span class="p">]</span>
+<span class="n">pytest</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+
+<span class="p">[</span><span class="n">packages</span><span class="p">]</span>
+<span class="n">requests</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-pipfile-lock">
+<h3>Example Pipfile.lock<a class="headerlink" href="#example-pipfile-lock" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;_meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;sha256&quot;</span><span class="p">:</span> <span class="s2">&quot;08e3181df84d04301c9d435357ec9cf43c4a491d79a1ada682cce8936c492f49&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;host-environment-markers&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;implementation_name&quot;</span><span class="p">:</span> <span class="s2">&quot;cpython&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;implementation_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.6.2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;os_name&quot;</span><span class="p">:</span> <span class="s2">&quot;posix&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;platform_machine&quot;</span><span class="p">:</span> <span class="s2">&quot;x86_64&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;platform_python_implementation&quot;</span><span class="p">:</span> <span class="s2">&quot;CPython&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;platform_release&quot;</span><span class="p">:</span> <span class="s2">&quot;16.7.0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;platform_system&quot;</span><span class="p">:</span> <span class="s2">&quot;Darwin&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;platform_version&quot;</span><span class="p">:</span> <span class="s2">&quot;Darwin Kernel Version 16.7.0: Thu Jun 15 17:36:27 PDT 2017; root:xnu-3789.70.16~2/RELEASE_X86_64&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;python_full_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.6.2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;python_version&quot;</span><span class="p">:</span> <span class="s2">&quot;3.6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;sys_platform&quot;</span><span class="p">:</span> <span class="s2">&quot;darwin&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;pipfile-spec&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">&quot;requires&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;sources&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://pypi.python.org/simple&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;verify_ssl&quot;</span><span class="p">:</span> <span class="n">true</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;certifi&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;hashes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;sha256:54a07c09c586b0e4c619f02a5e94e36619da8e2b053e20f594348c0611803704&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sha256:40523d2efb60523e113b44602298f0960e900388cf3bb6043f645cf57ea9e3f5&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==2017.7.27.1&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;chardet&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;hashes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==3.0.4&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;idna&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;hashes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;sha256:8c7309c718f94b3a625cb648ace320157ad16ff131ae0af362c9f21b80ef6ec4&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sha256:2c6a5de3089009e3da7c5dde64a141dbc8551d5b7f6cf4ed7c2568d0cc520a8f&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==2.6&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;requests&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;hashes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;sha256:6a1b267aa90cac58ac3a765d067950e7dbbf75b1da07e895d1f594193a40a38b&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sha256:9c443e7324ba5b85070c4a818ade28bfabedf16ea10206da1132edaa6dda237e&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==2.18.4&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;urllib3&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;hashes&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;sha256:06330f386d6e4b195fbfc736b297f58c5a892e4440e54d294d7004e3a9bbea1b&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;sha256:cc44da8e1145637334317feebd728bd869a35285b93cbb4cca2577da7e62db4f&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==1.22&quot;</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;develop&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;py&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==1.4.34&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;pytest&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;==3.2.1&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="importing-from-requirements-txt">
+<h2>☤ Importing from requirements.txt<a class="headerlink" href="#importing-from-requirements-txt" title="Permalink to this headline">¶</a></h2>
+<p>If you only have a <code class="docutils literal"><span class="pre">requirements.txt</span></code> file available when running <code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">install</span></code>,
+pipenv will automatically import the contents of this file and create a <code class="docutils literal"><span class="pre">Pipfile</span></code> for you.</p>
+</div>
+<div class="section" id="specifying-versions-of-a-package">
+<span id="specifying-versions"></span><h2>☤ Specifying Versions of a Package<a class="headerlink" href="#specifying-versions-of-a-package" title="Permalink to this headline">¶</a></h2>
+<p>To tell pipenv to install a specific version of a library, the usage is simple:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipenv install requests==2.13.0
+</pre></div>
+</div>
+<p>This will update your <code class="docutils literal"><span class="pre">Pipfile</span></code> to reflect this requirement, automatically.</p>
+</div>
+<div class="section" id="specifying-versions-of-python">
+<h2>☤ Specifying Versions of Python<a class="headerlink" href="#specifying-versions-of-python" title="Permalink to this headline">¶</a></h2>
+<p>To create a new virtualenv, using a specific version of Python you have installed (and
+on your <code class="docutils literal"><span class="pre">PATH</span></code>), use the <code class="docutils literal"><span class="pre">--python</span> <span class="pre">VERSION</span></code> flag, like so:</p>
+<p>Use Python 3.6:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipenv --python 3.6
+</pre></div>
+</div>
+<p>Use Python 2.7:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipenv --python 2.7
+</pre></div>
+</div>
+<p>If you don’t specify a Python version, either the <code class="docutils literal"><span class="pre">[requires]</span></code> <code class="docutils literal"><span class="pre">python_version</span></code> will be selected, or
+whatever your system’s default Python installation is, at time of execution.</p>
+</div>
+<div class="section" id="fancy-installation-of-pipenv">
+<span id="proper-installation"></span><h2>☤ Fancy Installation of Pipenv<a class="headerlink" href="#fancy-installation-of-pipenv" title="Permalink to this headline">¶</a></h2>
+<p>To install pipenv in a fancy way, we recommend using <a class="reference external" href="https://github.com/mitsuhiko/pipsi">pipsi</a>.</p>
+<p>Pipsi is a powerful tool which allows you to install Python scripts into isolated virtual environments.</p>
+<p>To install pipsi, first run this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python
+</pre></div>
+</div>
+<p>Follow the instructions, you’ll have to update your <code class="docutils literal"><span class="pre">PATH</span></code>.</p>
+<p>Then, simply run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipsi install pew
+$ pipsi install pipenv
+</pre></div>
+</div>
+<p>To upgrade pipenv at any time:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipsi upgrade pipenv
+</pre></div>
+</div>
+<p>This will install both <code class="docutils literal"><span class="pre">pipenv</span></code> and <code class="docutils literal"><span class="pre">pew</span></code> (one of our dependencies) in an isolated virtualenv, so it doesn’t interfere with the rest of your Python installation!</p>
+</div>
+<div class="section" id="pragmatic-installation-of-pipenv">
+<span id="pragmatic-installation"></span><h2>☤ Pragmatic Installation of Pipenv<a class="headerlink" href="#pragmatic-installation-of-pipenv" title="Permalink to this headline">¶</a></h2>
+<p>If you have a working installation of pip, and maintain certain “toolchain” type Python modules as global utilities in your user enviornment, pip <a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#user-installs">user installs</a> allow for installation into your home directory. Note that due to interaction between dependencies, you should limit tools installed in this way to basic building blocks for a Python workflow like virtualenv, pipenv, tox, and similar software.</p>
+<p>To install:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install --user pipenv
+</pre></div>
+</div>
+<p>For more information see the <a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#user-installs">user installs documentation</a>, but to add the installed cli tools from a pip user install to your path, add the output of:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python -c &quot;import site; import os; print(os.path.join(site.USER_BASE, &#39;bin&#39;))&quot;
+</pre></div>
+</div>
+<p>To upgrade pipenv at any time:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pip install --user --upgrade pipenv
+</pre></div>
+</div>
+</div>
+<div class="section" id="crude-installation-of-pipenv">
+<span id="crude-installation"></span><h2>☤ Crude Installation of Pipenv<a class="headerlink" href="#crude-installation-of-pipenv" title="Permalink to this headline">¶</a></h2>
+<p>If you don’t even have pip installed, you can use this crude installation method, which will boostrap your whole system:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ curl https://github.com/kennethreitz/pipenv/raw/master/get-pipenv.py | python
+</pre></div>
+</div>
+<p>Congratulations, you now have pip and Pipenv installed!</p>
+</div>
+<div class="section" id="environment-management-with-pipenv">
+<span id="environment-management"></span><h2>☤ Environment Management with Pipenv<a class="headerlink" href="#environment-management-with-pipenv" title="Permalink to this headline">¶</a></h2>
+<p>The three primary commands you’ll use in managing your pipenv environment are
+<code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">install</span></code>, <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">uninstall</span></code>, and <code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">lock</span></code>.</p>
+<div class="section" id="pipenv-install">
+<h3>$ pipenv install<a class="headerlink" href="#pipenv-install" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">install</span></code> is used for installing packages into the pipenv virtual environment
+and updating your Pipfile.</p>
+<p>Along with the basic install command, which takes the form:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ pipenv install [package names]
+</pre></div>
+</div>
+<p>The user can provide these additional parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">--two</span></code> — Performs the installation in a virtualenv using the system <code class="docutils literal"><span class="pre">python2</span></code> link.</li>
+<li><code class="docutils literal"><span class="pre">--three</span></code> — Performs the installation in a virtualenv using the system <code class="docutils literal"><span class="pre">python3</span></code> link.</li>
+<li><code class="docutils literal"><span class="pre">--python</span></code> — Performs the installation in a virtualenv using the provided Python intepreter.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">None of the above commands should be used together. They are also
+<strong>destructive</strong> and will delete your current virtualenv before replacing
+it with an appropriately versioned one.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The virtualenv created by Pipenv may be different from what you were expecting.
+Dangerous characters (i.e. <code class="docutils literal"><span class="pre">$`!*&#64;&quot;</span></code> as well as space, line feed, carriage return,
+and tab) are converted to underscores. Additionally, the full path to the current
+folder is encoded into a “slug value” and appended to ensure the virtualenv name
+is unique.</p>
+</div>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">--dev</span></code> — Install both <code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">default</span></code> packages from <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">--system</span></code> — Use the system <code class="docutils literal"><span class="pre">pip</span></code> command rather than the one from your virtualenv.</li>
+<li><code class="docutils literal"><span class="pre">--lock</span></code> — Generate a new <code class="docutils literal"><span class="pre">Pipfile.lock</span></code> adding the newly installed packages.</li>
+<li><code class="docutils literal"><span class="pre">--ignore-pipfile</span></code> — Ignore the <code class="docutils literal"><span class="pre">Pipfile</span></code> and install from the <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="pipenv-uninstall">
+<h3>$ pipenv uninstall<a class="headerlink" href="#pipenv-uninstall" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">uninstall</span></code> supports all of the parameters in <a class="reference external" href="#pipenv-install">pipenv install</a>,
+as well as one additonal, <code class="docutils literal"><span class="pre">--all</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">--all</span></code> — This parameter will purge all files from the virtual environment,</dt>
+<dd>but leave the Pipfile untouched.</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="pipenv-lock">
+<h3>$ pipenv lock<a class="headerlink" href="#pipenv-lock" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">$</span> <span class="pre">pipenv</span> <span class="pre">lock</span></code> is used to create a <code class="docutils literal"><span class="pre">Pipfile.lock</span></code>, which declares <strong>all</strong> dependencies (and sub-depdendencies) of your project, their latest available versions, and the current hashes for the downloaded files. This ensures repeatable, and most importantly <em>deterministic</em>, builds.</p>
+</div>
+</div>
+<div class="section" id="configuration-with-environment-variables">
+<h2>☤ Configuration With Environment Variables<a class="headerlink" href="#configuration-with-environment-variables" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">pipenv</span></code> comes with a handful of options that can be enabled via shell environment
+variables. To activate them, simply create the variable in your shell and pipenv
+will detect it.</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">PIPENV_SHELL_COMPAT</span></code> — Toggle from our default <code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">shell</span></code> mode to classic.</dt>
+<dd>(Suggested for use with pyenv).</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">PIPENV_VENV_IN_PROJECT</span></code> — Toggle for detecting a <code class="docutils literal"><span class="pre">.venv</span></code> in your project directory</dt>
+<dd>and using it over the default environment manager, <code class="docutils literal"><span class="pre">pew</span></code>.</dd>
+</dl>
+</li>
+<li><code class="docutils literal"><span class="pre">PIPENV_COLORBLIND</span></code> — Disable terminal colors, for some reason.</li>
+<li><code class="docutils literal"><span class="pre">PIPENV_NOSPIN</span></code> — Disable terminal spinner, for cleaner logs.</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">PIPENV_MAX_DEPTH</span></code> — Set to an integer for the maximum number of directories to</dt>
+<dd>search for a Pipfile.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">PIPENV_TIMEOUT</span></code> — Set to an integer for the max number of seconds pipenv will</dt>
+<dd>wait for virtualenv creation to complete.  Defaults to 120 seconds.</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><code class="docutils literal"><span class="pre">PIPENV_IGNORE_VIRTUALENVS</span></code> — Set to disable automatically using an activated virtualenv over</dt>
+<dd>the current project.</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+<p>Also note that <a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#environment-variables">pip itself supports environment variables</a>, if you need additional customization.</p>
+</div>
+<div class="section" id="custom-virtual-environment-location">
+<h2>☤ Custom Virtual Environment Location<a class="headerlink" href="#custom-virtual-environment-location" title="Permalink to this headline">¶</a></h2>
+<p>Pipenv’s underlying <code class="docutils literal"><span class="pre">pew</span></code> dependency will automatically honor the <code class="docutils literal"><span class="pre">WORKON_HOME</span></code> environment
+variable, if you have it set —&nbsp;so you can tell pipenv to store your virtual environments wherever you want, e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">WORKON_HOME</span><span class="o">=~/.</span><span class="n">venvs</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-projects">
+<h2>☤ Testing Projects<a class="headerlink" href="#testing-projects" title="Permalink to this headline">¶</a></h2>
+<p>While pipenv is still a relatively new project, it’s already being used in
+projects like <a class="reference external" href="https://github.com/kennethreitz/requests">Requests</a>. Specifically for transitioning to the new Pipfile
+format and running the test suite.</p>
+<p>We’ve currently tested deployments with both <a class="reference external" href="https://travis-ci.org/">Travis-CI</a> and <a class="reference external" href="https://tox.readthedocs.io/en/latest/">tox</a> with success.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It’s highly recommended to run <code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">lock</span></code> before installing on a
+CI platform, due to possible hash conflicts between system binaries.</p>
+</div>
+<div class="section" id="travis-ci">
+<h3>Travis CI<a class="headerlink" href="#travis-ci" title="Permalink to this headline">¶</a></h3>
+<p>An example Travis CI setup can be found in <a class="reference external" href="https://github.com/kennethreitz/requests">Requests</a>. The project uses a Makefile to
+define common functions such as its <code class="docutils literal"><span class="pre">init</span></code> and <code class="docutils literal"><span class="pre">tests</span></code> commands. Here is
+a stripped down example <code class="docutils literal"><span class="pre">.travis.yml</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">language</span><span class="p">:</span> <span class="n">python</span>
+<span class="n">python</span><span class="p">:</span>
+    <span class="o">-</span> <span class="s2">&quot;2.6&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;2.7&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;3.3&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;3.4&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;3.5&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;3.6&quot;</span>
+    <span class="o">-</span> <span class="s2">&quot;3.7dev&quot;</span>
+
+<span class="c1"># command to install dependencies</span>
+<span class="n">install</span><span class="p">:</span> <span class="s2">&quot;make&quot;</span>
+
+<span class="c1"># command to run tests</span>
+<span class="n">script</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">make</span> <span class="n">test</span>
+</pre></div>
+</div>
+<p>and the corresponding Makefile:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">init</span><span class="p">:</span>
+    <span class="n">pip</span> <span class="n">install</span> <span class="n">pipenv</span>
+    <span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
+
+<span class="n">test</span><span class="p">:</span>
+    <span class="n">pipenv</span> <span class="n">run</span> <span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="n">tests</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tox-automation-project">
+<h3>Tox Automation Project<a class="headerlink" href="#tox-automation-project" title="Permalink to this headline">¶</a></h3>
+<p>Alternatively, you can configure a <code class="docutils literal"><span class="pre">tox.ini</span></code> like the one below for both local
+and external testing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">tox</span><span class="p">]</span>
+<span class="n">envlist</span> <span class="o">=</span> <span class="n">flake8</span><span class="o">-</span><span class="n">py3</span><span class="p">,</span> <span class="n">py26</span><span class="p">,</span> <span class="n">py27</span><span class="p">,</span> <span class="n">py33</span><span class="p">,</span> <span class="n">py34</span><span class="p">,</span> <span class="n">py35</span><span class="p">,</span> <span class="n">py36</span><span class="p">,</span> <span class="n">pypy</span>
+
+<span class="p">[</span><span class="n">testenv</span><span class="p">]</span>
+<span class="n">passenv</span><span class="o">=</span><span class="n">HOME</span>
+<span class="n">deps</span> <span class="o">=</span> <span class="n">pipenv</span>
+<span class="n">commands</span><span class="o">=</span>
+    <span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
+    <span class="n">pipenv</span> <span class="n">run</span> <span class="n">py</span><span class="o">.</span><span class="n">test</span> <span class="n">tests</span>
+
+<span class="p">[</span><span class="n">testenv</span><span class="p">:</span><span class="n">flake8</span><span class="o">-</span><span class="n">py3</span><span class="p">]</span>
+<span class="n">passenv</span><span class="o">=</span><span class="n">HOME</span>
+<span class="n">basepython</span> <span class="o">=</span> <span class="n">python3</span><span class="o">.</span><span class="mi">4</span>
+<span class="n">commands</span><span class="o">=</span>
+    <span class="p">{[</span><span class="n">testenv</span><span class="p">]</span><span class="n">deps</span><span class="p">}</span>
+    <span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
+    <span class="n">pipenv</span> <span class="n">run</span> <span class="n">flake8</span> <span class="o">--</span><span class="n">version</span>
+    <span class="n">pipenv</span> <span class="n">run</span> <span class="n">flake8</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">docs</span> <span class="n">project</span> <span class="n">test</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">With Pipenv’s default configuration, you’ll need to use tox’s <code class="docutils literal"><span class="pre">passenv</span></code> parameter
+to pass your shell’s <code class="docutils literal"><span class="pre">HOME</span></code> variable.</p>
+</div>
+</div>
+</div>
+<div class="section" id="pipfile-lock-security-features">
+<h2>☤ Pipfile.lock Security Features<a class="headerlink" href="#pipfile-lock-security-features" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">Pipfile.lock</span></code> takes advantage of some great new security improvements in <code class="docutils literal"><span class="pre">pip</span></code>.
+By default, the <code class="docutils literal"><span class="pre">Pipfile.lock</span></code> will be generated with a sha256 hash of each downloaded
+package. This will allow <code class="docutils literal"><span class="pre">pip</span></code> to guarantee you’re installing what you intend to when
+on a compromised network, or downloading dependencies from an untrusted PyPI endpoint.</p>
+<p>We highly recommend approaching deployments with promoting projects from a development
+environment into production. You can use <code class="docutils literal"><span class="pre">pipenv</span> <span class="pre">lock</span></code> to compile your dependencies on
+your development environment and deploy the compiled <code class="docutils literal"><span class="pre">Pipfile.lock</span></code> to all of your
+production environments for reproducible builds.</p>
+</div>
+<div class="section" id="shell-completion">
+<h2>☤ Shell Completion<a class="headerlink" href="#shell-completion" title="Permalink to this headline">¶</a></h2>
+<p>Set <code class="docutils literal"><span class="pre">_PIPENV_COMPLETE</span></code> and then source the output of the program.
+For example, with <code class="docutils literal"><span class="pre">fish</span></code>, put this in your
+<code class="docutils literal"><span class="pre">~/.config/fish/completions/pipenv.fish</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="p">(</span><span class="n">env</span> <span class="n">_PIPENV_COMPLETE</span><span class="o">=</span><span class="n">source</span><span class="o">-</span><span class="n">fish</span> <span class="n">pipenv</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Magic shell completions are now enabled!</p>
+<p>✨🍰✨</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="logo">
+  <a href="index.html">
+    <img class="logo" src="_static/pipenv.svg" title="https://kennethreitz.org/tattoos"/>
+  </a>
+</p>
+
+<p>
+  <iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&repo=pipenv&type=watch&count=true&size=large"
+    allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+<p>
+  Pipenv is an experimental project that aims to bring the best of all packaging worlds to the Python world. It harnesses Pipfile, pip, and virtualenv into one single toolchain.
+  <p>It features very pretty terminal colors.</p>
+</p>
+
+<h3>Stay Informed</h3>
+<p>Receive updates on new releases and upcoming projects.</p>
+
+<p><iframe src="http://ghbtns.com/github-btn.html?user=kennethreitz&type=follow&count=false"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe></p>
+
+<p><a href="https://twitter.com/kennethreitz" class="twitter-follow-button" data-show-count="false">Follow @kennethreitz</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>
+<p><a href="https://saythanks.io/to/kennethreitz">Say Thanks!</a></p>
+<p><a href="http://tinyletter.com/kennethreitz">Join Mailing List</a>.</p>
+
+<h3>Other Projects</h3>
+
+<p>More <a href="http://kennethreitz.org/">Kenneth Reitz</a> projects:</p>
+<ul>
+    <li><a href="http://pep8.org/">pep8.org</a></li>
+    <li><a href="http://httpbin.org/">httpbin.org</a></li>
+    <li><a href="http://python-guide.org">The Python Guide</a></li>
+    <li><a href="http://python-requests.org/">Requests: HTTP for Humans</a></li>
+    <li><a href="https://github.com/kennethreitz/records">Records: SQL for Humans</a></li>
+    <li><a href="http://www.git-legit.org">Legit: Git for Humans</a></li>
+    <li><a href="http://docs.python-tablib.org/en/latest/">Tablib: Tabular Datasets</a></li>
+    <li><a href="http://markdownplease.com">Markdown, Please!</a></li>
+</ul>
+
+
+<h3>Useful Links</h3>
+<ul>
+  <li><a href="http://docs.python-requests.org/en/latest/community/recommended/">Recommended Packages and Extensions</a></li>
+
+  <p></p>
+
+  <li><a href="http://github.com/kennethreitz/pipenv">Pipenv @ GitHub</a></li>
+  <li><a href="http://pypi.python.org/pypi/pipenv">Pipenv @ PyPI</a></li>
+  <li><a href="http://github.com/kennethreitz/pipenv/issues">Issue Tracker</a></li>
+  <hr>
+  <li><a href="http://pipenv-ja.readthedocs.io/ja/translate-ja/">日本語</a></li>
+</ul>
+
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Advanced Usage of Pipenv</a><ul>
+<li><a class="reference internal" href="#example-pipfile-pipfile-lock">☤ Example Pipfile &amp; Pipfile.lock</a><ul>
+<li><a class="reference internal" href="#example-pipfile">Example Pipfile</a></li>
+<li><a class="reference internal" href="#example-pipfile-lock">Example Pipfile.lock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#importing-from-requirements-txt">☤ Importing from requirements.txt</a></li>
+<li><a class="reference internal" href="#specifying-versions-of-a-package">☤ Specifying Versions of a Package</a></li>
+<li><a class="reference internal" href="#specifying-versions-of-python">☤ Specifying Versions of Python</a></li>
+<li><a class="reference internal" href="#fancy-installation-of-pipenv">☤ Fancy Installation of Pipenv</a></li>
+<li><a class="reference internal" href="#pragmatic-installation-of-pipenv">☤ Pragmatic Installation of Pipenv</a></li>
+<li><a class="reference internal" href="#crude-installation-of-pipenv">☤ Crude Installation of Pipenv</a></li>
+<li><a class="reference internal" href="#environment-management-with-pipenv">☤ Environment Management with Pipenv</a><ul>
+<li><a class="reference internal" href="#pipenv-install">$ pipenv install</a></li>
+<li><a class="reference internal" href="#pipenv-uninstall">$ pipenv uninstall</a></li>
+<li><a class="reference internal" href="#pipenv-lock">$ pipenv lock</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-with-environment-variables">☤ Configuration With Environment Variables</a></li>
+<li><a class="reference internal" href="#custom-virtual-environment-location">☤ Custom Virtual Environment Location</a></li>
+<li><a class="reference internal" href="#testing-projects">☤ Testing Projects</a><ul>
+<li><a class="reference internal" href="#travis-ci">Travis CI</a></li>
+<li><a class="reference internal" href="#tox-automation-project">Tox Automation Project</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pipfile-lock-security-features">☤ Pipfile.lock Security Features</a></li>
+<li><a class="reference internal" href="#shell-completion">☤ Shell Completion</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="basics.html" title="previous chapter">Pipenv &amp; Virtual Environments</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/advanced.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><!-- Alabaster (krTheme++) Hacks -->
+
+<!-- CSS Adjustments (I'm very picky.) -->
+<style type="text/css">
+
+  /* Rezzy requires precise alignment. */
+  img.logo {margin-left: -20px!important;}
+
+  /* "Quick Search" should be capitalized. */
+  div#searchbox h3 {text-transform: capitalize;}
+
+  /* Make the document a little wider, less code is cut-off. */
+  div.document {width: 1008px;}
+
+  /* Much-improved spacing around code blocks. */
+  div.highlight pre {padding: 11px 14px;}
+
+  /* Remain Responsive! */
+  @media screen and (max-width: 1008px) {
+    div.sphinxsidebar {display: none;}
+    div.document {width: 100%!important;}
+
+    /* Have code blocks escape the document right-margin. */
+    div.highlight pre {margin-right: -30px;}
+  }
+
+</style>
+
+<!-- Analytics tracking for Kenneth. -->
+<script type="text/javascript">
+  var _gauges = _gauges || [];
+  (function() {
+    var t   = document.createElement('script');
+    t.type  = 'text/javascript';
+    t.async = true;
+    t.id    = 'gauges-tracker';
+    t.setAttribute('data-site-id', '588f8e99c88d9013e60fa373');
+    t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+    t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(t, s);
+  })();
+</script>
+
+<!-- There are no more hacks. -->
+<!--         இڿڰۣ-ڰۣ—         -->
+<!--   Love, Kenneth Reitz    -->
+
+<script src="_static//konami.js"></script>
+<script>
+  var easter_egg = new Konami('http://fortunes.herokuapp.com/random/raw');
+</script>
+
+<!-- That was not a hack. That was art. -->
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017. A <a href="http://kennethreitz.com/pages/open-projects.html">Kenneth Reitz</a> Project.
+      
+      |
+      <a href="_sources/advanced.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+    <a href="https://github.com/kennethreitz/pipenv" class="github">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"  class="github"/>
+    </a>
+    
+
+    
+  </body>
+</html>
