@@ -121,6 +121,26 @@ urllib3.disable_warnings(InsecureRequestWarning)
 project = Project()
 
 
+def puts(data, level='info'):
+    """Standardize console output."""
+    def puts_info():
+        click.echo('{0}  {1}'.format(crayons.green('INFO'), data))
+
+    def puts_warn():
+        click.echo('{0}  {1}'.format(crayons.yellow('WARN'), data))
+
+    def puts_error():
+        click.echo('{0}  {1}'.format(crayons.red('ERROR'), data), err=True)
+
+    switch = {
+        'info': puts_info,
+        'warn': puts_warn,
+        'error': puts_error
+    }
+
+    return switch[level]()
+
+
 def load_dot_env():
     if not PIPENV_DONT_LOAD_ENV:
         # If the project doesn't exist yet, check current directory for a .env file
